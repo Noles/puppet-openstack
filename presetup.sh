@@ -2,7 +2,7 @@
 
 while IFS='' read -r line || [[ -n "$line" ]]; do
     echo "$line"
-    #git clone http://git.openstack.org/openstack/puppet-$line /etc/puppet/modules/$line
+    git clone http://git.openstack.org/openstack/puppet-$line /etc/puppet/modules/$line
 done < "openstack_modules.txt"
 
 while IFS='' read -r line || [[ -n "$line" ]]; do

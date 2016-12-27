@@ -1,23 +1,11 @@
 #!/bin/bash
 
-end_of_file=0
-while [[ $end_of_file == 0 ]]
-do
-  read -r line
-  # the last exit status is the 
-  # flag of the end of file
-  end_of_file=$?
-  echo $line
-  git clone http://git.openstack.org/openstack/$line /etc/puppet/modules/
+while IFS='' read -r line || [[ -n "$line" ]]; do
+    echo "$line"
+    #git clone http://git.openstack.org/openstack/puppet-$line /etc/puppet/modules/$line
 done < "openstack_modules.txt"
 
-end_of_file=0
-while [[ $end_of_file == 0 ]]
-do
-  read -r line
-  # the last exit status is the 
-  # flag of the end of file
-  end_of_file=$?
-  echo $line
-  puppet module install $line
+while IFS='' read -r line || [[ -n "$line" ]]; do
+    echo "$line"
+    puppet module install $line
 done < "external_modules.txt"

@@ -12,14 +12,6 @@ class openstack::resource::nova::api {
     Exec['update-ca-certificates'] ~> Service['httpd']
   }
 
-  $transport_url = os_transport_url({
-    'transport' => 'rabbit',
-    'host'      => $::openstack::config::host,
-    'port'      => $::openstack::config::rabbit_port,
-    'username'  => 'nova',
-    'password'  => 'an_even_bigger_secret',
-  })
-
   rabbitmq_user { 'nova':
     admin    => true,
     password => 'an_even_bigger_secret',
@@ -43,8 +35,17 @@ class openstack::resource::nova::api {
     #TODO(aschultz): remove this once it becomes default
     setup_cell0 => true,
   }
+  
+  include ::openstack::resource::nova
+  
   class { '::nova::db::sync_cell_v2':
     transport_url => $transport_url,
+  }
+  class { '::nova::keystone::auth':
+    public_url   => "${::openstack::config::base_url}:8774/v2.1",
+    internal_url => "${::openstack::config::base_url}:8774/v2.1",
+    admin_url    => "${::openstack::config::base_url}:8774/v2.1",
+    password     => 'a_big_secret',
   }
   class { '::nova::keystone::authtoken':
     password            => 'a_big_secret',
@@ -53,9 +54,7 @@ class openstack::resource::nova::api {
     auth_url            => $::openstack::config::keystone_admin_uri,
     auth_uri            => $::openstack::config::keystone_auth_uri,
     memcached_servers   => $::openstack::config::memcached_servers,
-  }
-
-  include ::openstack::resource::nova
+  }  
 
   class { '::nova::api':
     api_bind_address                     => $::openstack::config::host,

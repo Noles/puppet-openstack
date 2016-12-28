@@ -19,4 +19,10 @@ class openstack::resource::nova {
     notification_driver     => 'messagingv2',
     notify_on_state_change  => 'vm_and_task_state',
   }
+  
+  class { '::nova::network::neutron':
+    neutron_auth_url => "${::openstack::config::keystone_admin_uri}/v3",
+    neutron_url      => "${::openstack::config::base_url}:9696",
+    neutron_password => 'a_big_secret',
+  }
 }

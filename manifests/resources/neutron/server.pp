@@ -28,6 +28,8 @@ class openstack::resource::neutron::server {
   class { '::neutron::db::mysql':
     password => 'neutron',
   }
+  
+  include ::openstack::resource::nova
 
   class { '::neutron::client': }
   class { '::neutron::keystone::authtoken':

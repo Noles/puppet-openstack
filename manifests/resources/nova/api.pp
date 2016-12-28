@@ -46,12 +46,6 @@ class openstack::resource::nova::api {
   class { '::nova::db::sync_cell_v2':
     transport_url => $transport_url,
   }
-  class { '::nova::keystone::auth':
-    public_url   => "${::openstack::config::base_url}:8774/v2.1",
-    internal_url => "${::openstack::config::base_url}:8774/v2.1",
-    admin_url    => "${::openstack::config::base_url}:8774/v2.1",
-    password     => 'a_big_secret',
-  }
   class { '::nova::keystone::authtoken':
     password            => 'a_big_secret',
     user_domain_name    => 'Default',

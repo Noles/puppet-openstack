@@ -7,4 +7,5 @@ class openstack::role::allinone inherits ::openstack::role {
   class { '::openstack::nova': }
   class { '::openstack::cinder': }
   class { '::openstack::horizon': }
+  #class { '::openstack::provision': }
 }

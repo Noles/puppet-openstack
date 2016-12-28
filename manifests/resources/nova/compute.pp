@@ -18,12 +18,14 @@
 #   (optional) Boolean to configure or not volume encryption
 #   Defaults to false.
 #
-class openstack::resource::nova::compute inherits ::openstack::resource::nova (
+class openstack::resource::nova::compute (
   $libvirt_rbd       = false,
   $libvirt_virt_type = 'qemu',
   $libvirt_cpu_mode  = 'none',
   $volume_encryption = false,
 ) {
+
+  include ::openstack::resource::nova
 
   if $volume_encryption {
     $keymgr_api_class     = 'castellan.key_manager.barbican_key_manager.BarbicanKeyManager'

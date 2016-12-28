@@ -1,4 +1,4 @@
-class openstack::role::allinone inherits ::openstack::role {
+class openstack::role::controller inherits ::openstack::role {
   class { '::openstack::rabbitmq': }
   class { '::openstack::mysql': }
   class { '::openstack::keystone': }

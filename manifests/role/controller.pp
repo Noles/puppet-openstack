@@ -7,8 +7,7 @@ class openstack::role::controller inherits ::openstack::role {
   class { '::openstack::resource::neutron::server': } ->
   class { '::openstack::resource::neutron::network': }
   class { '::openstack::resource::nova::compute': }
-   #TODO  
-  #class { '::openstack::cinder': }
+  class { '::openstack::resource::cinder::api': }
   
   class { '::openstack::horizon': }
   #class { '::openstack::provision': }

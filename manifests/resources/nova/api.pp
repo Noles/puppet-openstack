@@ -1,5 +1,9 @@
 # Configure the Nova service
 class openstack::resource::nova::api {
+
+  include ::openstack::config
+  include ::openstack::params 
+
   if $::openstack::config::ssl {
     openstack::ssl_key { 'nova':
       notify  => Service['httpd'],

@@ -25,6 +25,8 @@ class openstack::resource::nova::compute (
   $volume_encryption = false,
 ) {
 
+  include ::openstack::config
+  include ::openstack::params 
   include ::openstack::resource::nova
 
   if $volume_encryption {

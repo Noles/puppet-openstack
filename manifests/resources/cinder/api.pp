@@ -40,6 +40,8 @@ class openstack::resource::cinder::api {
     password        => 'a_big_secret',
   }
   
+  include ::openstack::resource::cinder
+  
   class { '::cinder::keystone::authtoken':
     password            => 'a_big_secret',
     user_domain_name    => 'Default',

@@ -9,3 +9,6 @@ while IFS='' read -r line || [[ -n "$line" ]]; do
     echo "$line"
     puppet module install $line
 done < "external_modules.txt"
+
+mkdir /etc/puppet/modules/openstack
+cp manifests /etc/puppet/modules/openstack -r

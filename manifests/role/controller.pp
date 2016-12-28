@@ -3,10 +3,11 @@ class openstack::role::controller inherits ::openstack::role {
   class { '::openstack::mysql': }
   class { '::openstack::keystone': }
  
- #TODO
-  #class { '::openstack::glance': }
-  #class { '::openstack::neutron': }
-  #class { '::openstack::nova': }
+  class { '::openstack::glance': }
+  class { '::openstack::resource::neutron::server': } ->
+  class { '::openstack::resource::neutron::network': }
+  class { '::openstack::resource::nova::compute': }
+   #TODO  
   #class { '::openstack::cinder': }
   
   class { '::openstack::horizon': }
